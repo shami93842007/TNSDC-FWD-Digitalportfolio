@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shami - Portfolio</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background: linear-gradient(135deg, #89f7fe, #66a6ff);
+      color: #333;
+      scroll-behavior: smooth;
+    }
+    header {
+      background: #1f2937;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 { font-size: 2rem; margin-bottom: 8px; }
+    header p { font-size: 1.1rem; }
+    nav a {
+      color: white; margin: 0 12px; text-decoration: none;
+      font-weight: bold; transition: color 0.3s;
+    }
+    nav a:hover { color: #facc15; }
+    section { padding: 50px 20px; text-align: center; }
+    section h2 { font-size: 1.8rem; margin-bottom: 20px; }
+    #about p { max-width: 650px; margin: auto; font-size: 1.1rem; }
+    .projects-container {
+      display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;
+    }
+    .card {
+      background: white; padding: 20px; border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      width: 260px; transition: transform 0.3s;
+    }
+    .card:hover { transform: translateY(-5px); }
+    #skills ul {
+      list-style: none; display: flex; justify-content: center;
+      flex-wrap: wrap; gap: 15px;
+    }
+    #skills li {
+      background: #2563eb; color: white; padding: 10px 20px;
+      border-radius: 8px; font-weight: bold;
+    }
+    form {
+      display: flex; flex-direction: column; align-items: center;
+      max-width: 400px; margin: auto;
+    }
+    form input, form textarea {
+      width: 100%; padding: 10px; margin: 10px 0;
+      border-radius: 8px; border: 1px solid #ccc;
+    }
+    form button {
+      background: #2563eb; color: white; padding: 12px;
+      border: none; border-radius: 8px; cursor: pointer;
+      transition: background 0.3s;
+    }
+    form button:hover { background: #1d4ed8; }
+    #form-status { margin-top: 15px; font-weight: bold; }
+    footer {
+      background: #1f2937; color: white; text-align: center; padding: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>Shami</h1>
+    <p>Apollo Arts and Science College, Chennai | BCA - 2nd Year</p>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- About -->
+  <section id="about">
+    <h2>About Me</h2>
+    <p>
+      Hi, I'm <strong>Shami</strong>.  
+      Currently pursuing <b>BCA (2nd Year)</b> at Apollo Arts and Science College, Chennai.  
+      I am passionate about coding, web development, and problem-solving.
+    </p>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="projects-container">
+      <div class="card">
+        <h3>Portfolio Website</h3>
+        <p>A personal portfolio to showcase my skills and projects.</p>
+      </div>
+      <div class="card">
+        <h3>Python Mini App</h3>
+        <p>A small Python app for automating tasks.</p>
+      </div>
+      <div class="card">
+        <h3>JS Game</h3>
+        <p>A simple interactive game built with JavaScript, HTML, and CSS.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills">
+    <h2>Skills</h2>
+    <ul>
+      <li>HTML</li>
+      <li>CSS</li>
+      <li>JavaScript</li>
+      <li>Python</li>
+      <li>C++</li>
+    </ul>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <form id="contact-form" action="https://formspree.io/f/yourformid" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+    <p id="form-status"></p>
+  </section>
+
+  <footer>
+    <p>© 2025 Shami | All Rights Reserved</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById("contact-form");
+    const status = document.getElementById("form-status");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+
+      status.innerHTML = "⏳ Sending...";
+      status.style.color = "blue";
+      status.style.opacity = "1";
+
+      try {
+        const response = await fetch(form.action, {
+          method: form.method,
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          showMessage("✅ Message sent successfully!", "green");
+          form.reset();
+        } else {
+          showMessage("❌ Oops! Something went wrong.", "red");
+        }
+      } catch (error) {
+        showMessage("⚠️ Network error. Try again later.", "orange");
+      }
+    });
+
+    function showMessage(message, color) {
+      status.innerHTML = message;
+      status.style.color = color;
+      status.style.opacity = "1";
+
+      setTimeout(() => {
+        status.style.transition = "opacity 1s";
+        status.style.opacity = "0";
+      }, 4000);
+    }
+  </script>
+</body>
+</html>
